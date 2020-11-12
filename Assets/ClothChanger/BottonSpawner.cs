@@ -20,6 +20,7 @@ public class BottonSpawner : MonoBehaviour
     {
         image = prefab.GetComponentInChildren<RawImage>();
         string[] files = ReadSpriteFiles();
+        Debug.Log("PartsName =" + BottonSpawner.partsName);
         foreach (string filename in files)
         {
             StartCoroutine(hoge(filename));

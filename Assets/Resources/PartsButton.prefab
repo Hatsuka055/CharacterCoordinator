@@ -140,6 +140,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maskImage: {fileID: 0}
   maskTex: {fileID: 0}
+  maskSpriteRenderer: {fileID: 0}
+  inner: {fileID: 0}
+  bottoms: {fileID: 0}
 --- !u!1 &3544242463223508337
 GameObject:
   m_ObjectHideFlags: 0

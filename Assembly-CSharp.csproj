@@ -78,9 +78,12 @@
      <Compile Include="Assets\Anima2D\Scripts\SpriteMeshAnimation.cs" />
      <Compile Include="Assets\Anima2D\Scripts\SpriteMeshInstance.cs" />
      <Compile Include="Assets\ClothChanger\BottonSpawner.cs" />
+     <Compile Include="Assets\ColorUnification.cs" />
      <Compile Include="Assets\DunamicTextureLoad.cs" />
      <Compile Include="Assets\EyeMaskSprite.cs" />
      <Compile Include="Assets\FilePathInput.cs" />
+     <Compile Include="Assets\ReservedColor.cs" />
+     <Compile Include="Assets\ShirtInToggle.cs" />
      <Compile Include="Assets\SpriteChanger.cs" />
      <Compile Include="Assets\SpriteTagetChanger.cs" />
      <None Include="Assets\Anima2D\Examples\Shaders\VisibleInsideMask.shader" />
