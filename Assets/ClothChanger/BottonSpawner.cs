@@ -14,20 +14,25 @@ public class BottonSpawner : MonoBehaviour
     public GameObject prefab;
     public GameObject removeButton;
     public static string partsName;
+    public static string[] URIs;
     public static bool maskFlg = false;
+
 
     public void LoadParts()
     {
+
         image = prefab.GetComponentInChildren<RawImage>();
+
         string[] files = ReadSpriteFiles();
+
         Debug.Log("PartsName =" + BottonSpawner.partsName);
         foreach (string filename in files)
         {
             StartCoroutine(hoge(filename));
         }
-        GameObject blank = Instantiate(removeButton,Vector3.zero,Quaternion.identity);
+        GameObject blank = Instantiate(removeButton, Vector3.zero, Quaternion.identity);
         blank.transform.SetParent(container);
-        blank.transform.localScale = new Vector3(1,1,1);
+        blank.transform.localScale = new Vector3(1, 1, 1);
     }
 
     public void DestroyButton()
@@ -47,7 +52,7 @@ public class BottonSpawner : MonoBehaviour
 
         if (spriteTexture.isNetworkError)
         {
-            Debug.LogError(filename);
+//            Debug.LogError(filename);
         }
         else
         {
@@ -68,7 +73,8 @@ public class BottonSpawner : MonoBehaviour
                     string maskBuffer = filename.Insert(filename.LastIndexOf("\\"), "/mask");
                     string maskPath = maskBuffer.Insert(maskBuffer.LastIndexOf("."), "_マスク");
                     Debug.Log("fileName=" + maskPath);
-                    if(File.Exists(maskPath)){
+                    if (File.Exists(maskPath))
+                    {
                         yield return StartCoroutine(SetMaskToButton(maskPath, buttonElement));
                     }
                 }
@@ -79,6 +85,7 @@ public class BottonSpawner : MonoBehaviour
     }
     IEnumerator SetMaskToButton(string filename, GameObject contextButton)
     {
+
         Debug.Log("dataPath : " + filename);
         UnityWebRequest maskTexture = UnityWebRequestTexture.GetTexture(filename);
         Debug.Log("処理してる:" + filename);
@@ -86,7 +93,7 @@ public class BottonSpawner : MonoBehaviour
 
         if (maskTexture.isNetworkError)
         {
-            Debug.LogError(filename);
+//            Debug.LogError(filename);
         }
         else
         {
@@ -98,10 +105,11 @@ public class BottonSpawner : MonoBehaviour
             else
             {
                 contextButton.GetComponent<SpriteChanger>().maskTex = maskTex as Texture2D;
-                
+
             }
         }
     }
+
 
     //string[] urlList;
     //while( (Application.dataPath + "*.png") != null )
@@ -109,13 +117,35 @@ public class BottonSpawner : MonoBehaviour
     //
     //};
     //UnityWebRequestTexture.GetTexture();
+    IEnumerator GetSpriteUri()
+    {
+        UnityWebRequest uri = UnityWebRequest.Get(Application.dataPath + "/Parts/" + partsName);
+        yield return uri.SendWebRequest();
+        string[] files = Directory.GetFiles(uri.downloadHandler.text, "*.png", SearchOption.TopDirectoryOnly);
 
+        URIs = files;
+
+    //    Debug.LogError(uri.downloadHandler.text);
+    }
 
     string[] ReadSpriteFiles()
     {
         string path = Application.dataPath + "/Parts/" + partsName;
+#if UNITY_STANDALONE_WIN
         string[] files = Directory.GetFiles(path, "*.png", SearchOption.TopDirectoryOnly);
+        foreach (var file in files)
+        {
+//            Debug.LogError(file);
+        }
         return files;
+#endif
+
+#if UNITY_WEBGL
+
+        StartCoroutine(GetSpriteUri());
+#endif
+
+        return null;
     }
 
     public void fuga(string folderName)

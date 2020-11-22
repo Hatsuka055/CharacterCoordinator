@@ -37,10 +37,12 @@ public class SpriteTagetChanger : MonoBehaviour
 
     public void SpriteColorChange_R()
     {
-
-        CurrentSprite.color = new Color(slider_R.value, spriteColor.g, spriteColor.b);
-
-        spriteColor = new Color(slider_R.value, spriteColor.g, spriteColor.b);
+        try{
+            CurrentSprite.color = new Color(slider_R.value, spriteColor.g, spriteColor.b);
+            spriteColor = new Color(slider_R.value, spriteColor.g, spriteColor.b);
+        }catch(Exception){
+            
+        }
     }
     public void SpriteColorChange_G()
     {

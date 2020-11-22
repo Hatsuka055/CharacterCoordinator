@@ -35,11 +35,11 @@ public class SpriteChanger : MonoBehaviour
     public void SpriteChange()
     {
         
-        if(BottonSpawner.partsName == "ワンピ")
+        if(BottonSpawner.partsName == "onepiece")
         {
             inner.sprite = null;
             bottoms.sprite = null;
-        }else if(BottonSpawner.partsName == "ボトムス" || BottonSpawner.partsName == "インナー")
+        }else if(BottonSpawner.partsName == "bottoms" || BottonSpawner.partsName == "inner")
         {
             onepiece.sprite = null;
             if(!inner.sprite)
@@ -64,6 +64,7 @@ public class SpriteChanger : MonoBehaviour
     public void RemoveSprite(){
         SpriteTagetChanger.CurrentSprite.sprite = null;
         SpriteTagetChanger.CurrentSprite.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+  
     }
     void OnDestroy()
     {
